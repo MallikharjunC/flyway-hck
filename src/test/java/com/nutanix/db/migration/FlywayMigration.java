@@ -1,15 +1,25 @@
 package com.nutanix.db.migration;
 
 import org.flywaydb.core.Flyway;
-import org.flywaydb.core.api.configuration.FluentConfiguration;
+import org.flywaydb.core.internal.info.MigrationInfoDumper;
+import org.testng.annotations.Test;
 
 public class FlywayMigration    {
 
+
+    @Test
     private void migrateDataBase(){
-        FluentConfiguration fluentConfiguration=new FluentConfiguration();
-        fluentConfiguration.dataSource("dbUrl","dbUser","dbPassword");
-        Flyway flyway=new Flyway(fluentConfiguration);
-        flyway.migrate();
+        Flyway flyway=Flyway.configure()
+                .licenseKey("")
+                .dataSource("url",
+                        "user",
+                        "pass")
+                .defaultSchema("")
+                .load();
+
+        System.out.println(MigrationInfoDumper.dumpToAsciiTable(flyway.info().all()));
+        flyway.undo();
+        System.out.println(MigrationInfoDumper.dumpToAsciiTable(flyway.info().all()));
     }
 
 }
