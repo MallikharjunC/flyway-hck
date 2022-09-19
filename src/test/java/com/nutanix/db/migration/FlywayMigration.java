@@ -4,17 +4,31 @@ import org.flywaydb.core.Flyway;
 import org.flywaydb.core.internal.info.MigrationInfoDumper;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 public class FlywayMigration    {
 
+    private static Properties properties=new Properties();
+    static {
+        File file = new File("src/test/resources/conf/flyway.conf");
+        try {
+            properties.load(new FileInputStream(file));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     private void migrateDataBase(){
+        System.out.println("Usee "+properties.getProperty("user"));
         Flyway flyway=Flyway.configure()
-                .licenseKey("")
-                .dataSource("url",
-                        "user",
-                        "pass")
-                .defaultSchema("")
+                .licenseKey(properties.getProperty("licenseKey"))
+                .dataSource(properties.getProperty("url"),
+                        properties.getProperty("user"),
+                        properties.getProperty("password"))
+                .defaultSchema(properties.getProperty("schema"))
                 .load();
 
         System.out.println(MigrationInfoDumper.dumpToAsciiTable(flyway.info().all()));
