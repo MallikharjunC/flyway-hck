@@ -22,7 +22,6 @@ public class FlywayMigration    {
 
     @Test
     private void migrateDataBase(){
-        System.out.println("Usee "+properties.getProperty("user"));
         Flyway flyway=Flyway.configure()
                 .licenseKey(properties.getProperty("licenseKey"))
                 .dataSource(properties.getProperty("url"),
