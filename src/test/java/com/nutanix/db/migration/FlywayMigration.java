@@ -12,8 +12,8 @@ public class FlywayMigration    {
 
     private static Properties properties=new Properties();
     static {
-        System.getProperty("configFileName","src/test/resources/conf/flyway.conf");
-        File file = new File("src/test/resources/conf/flyway.conf");
+        String filePath = System.getProperty("configFileName","src/test/resources/conf/flyway.conf");
+        File file = new File(filePath);
         try {
             properties.load(new FileInputStream(file));
         } catch (Exception e) {
