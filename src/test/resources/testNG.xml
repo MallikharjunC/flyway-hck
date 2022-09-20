@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="DB Migration" verbose="1">
+
+    <test name="Db migration">
+        <classes>
+            <class name="com.nutanix.db.migration.FlywayMigration">
+            </class>
+        </classes>
+    </test>
+</suite>
+
