@@ -13,6 +13,7 @@ public class FlywayMigration    {
     private static Properties properties=new Properties();
     static {
         String filePath = System.getProperty("configFileName","src/test/resources/conf/flyway.conf");
+        System.out.println("Reading config from : " + filePath);
         File file = new File(filePath);
         try {
             properties.load(new FileInputStream(file));
@@ -23,6 +24,7 @@ public class FlywayMigration    {
 
     @Test
     private void migrateDataBase(){
+        System.out.println("Connecting to : " + properties.getProperty("url"));
         Flyway flyway=Flyway.configure()
                 .licenseKey(properties.getProperty("licenseKey"))
                 .dataSource(properties.getProperty("url"),
