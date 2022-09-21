@@ -1,12 +1,12 @@
 pipeline {
     agent any
     tools {
-            maven 'MAVEN_HOME'
+            maven 'maven-3.8.4'
         }
     stages {
         stage ('Compile Stage') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean package'
             }
         }
     }
