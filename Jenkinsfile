@@ -1,5 +1,3 @@
-stageResultMap = [:]
-
 pipeline {
     agent { label 'master' }
     tools {
