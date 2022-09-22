@@ -28,12 +28,12 @@ pipeline {
         stage ('Migration Stage') {
             steps {
 //                 sh 'mvn clean compile test -DconfigFileName=/var/lib/jenkins/workspace/flyway_conf'
-                migrationSucceeded = false
+                migrationSucceeded = "false"
             }
         }
         stage ('Restore Databse') {
             steps {
-                if(migrationSucceeded) {
+                if(migrationSucceeded == 'false') {
                     sh 'exit 1'
                 } else {
                     echo "restoring from backup"
@@ -43,9 +43,10 @@ pipeline {
         }
         stage ('Deployment') {
             steps {
-                if(migrationSucceeded) {
+                if(migrationSucceeded == 'true') {
                     echo "deployment successful"
                     sh 'sleep 5'
+                    deploymentSucceeded = "true"
                 } else {
                     echo "skipping deployment"
                     sh 'exit 1'
@@ -54,7 +55,7 @@ pipeline {
         }
         stage ('Rollback Database version') {
             steps {
-                if(deploymentSucceeded) {
+                if(deploymentSucceeded == 'true') {
                     echo "skipping successful"
                     sh 'exit 1'
                 } else {
