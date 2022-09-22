@@ -4,8 +4,8 @@ pipeline {
             maven 'Maven 3.5.0'
     }
     environment  {
-       def migrationSucceeded = false
-       def deploymentSucceeded = false
+       def migrationSucceeded = "false"
+       def deploymentSucceeded = "false"
     }
     stages {
         stage ('cloning repo') {
