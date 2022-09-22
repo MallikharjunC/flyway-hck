@@ -44,7 +44,8 @@ pipeline {
             }
         }
         stage ('Deployment') {
-            when (migrationSucceeded == 'false') {
+            when {
+                migrationSucceeded 'false'
                 echo "skipping deployment"
                 deploymentSucceeded = "false"
             }
