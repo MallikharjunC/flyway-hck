@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'master' }
     tools {
-            maven 'Maven 3.5.0'
+            maven 'Maven'
     }
     environment  {
        def migrationSucceeded = "false"
