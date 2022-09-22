@@ -38,7 +38,6 @@ pipeline {
                 }
                 migrationSucceeded = "false"
 //                     sh 'exit 1'
-                }
             }
         }
         stage ('Restore Database') {
