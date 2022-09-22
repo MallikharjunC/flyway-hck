@@ -30,7 +30,7 @@ public class FlywayMigration {
     @BeforeSuite
     public void configure() {
         System.out.println("Connecting to : " + properties.getProperty("url"));
-        String activity = System.getProperty("activity", "migrate");
+        activity = System.getProperty("activity", "migrate");
         Flyway flyway = Flyway.configure()
                 .licenseKey(properties.getProperty("licenseKey"))
                 .dataSource(properties.getProperty("url"),
