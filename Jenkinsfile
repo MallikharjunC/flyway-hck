@@ -31,11 +31,13 @@ pipeline {
         }
         stage ('Restore Databse') {
             steps {
-                if(migrationSucceeded == "false") {
-                    sh 'exit 1'
-                } else {
-                    echo "restoring from backup"
-                    sh 'sleep 5'
+                script {
+                    if(migrationSucceeded == "false") {
+                        sh 'exit 1'
+                    } else {
+                        echo "restoring from backup"
+                        sh 'sleep 5'
+                    }
                 }
             }
         }
@@ -56,12 +58,14 @@ pipeline {
         }
         stage ('Rollback Database version') {
             steps {
-                if(deploymentSucceeded == "true") {
-                    echo "skipping successful"
-                    sh 'exit 1'
-                } else {
-                    echo "restoring from version"
-                    sh 'sleep 5'
+                script {
+                    if(deploymentSucceeded == "true") {
+                        echo "skipping successful"
+                        sh 'exit 1'
+                    } else {
+                        echo "restoring from version"
+                        sh 'sleep 5'
+                    }
                 }
             }
         }
