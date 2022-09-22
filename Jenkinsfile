@@ -2,7 +2,7 @@ pipeline {
     agent { label 'master' }
     tools {
             maven 'Maven 3.5.0'
-        }
+    }
     def migrationSucceeded = false
     def deploymentSucceeded = false
     stages {
@@ -21,7 +21,6 @@ pipeline {
                 sh 'sleep 5'
 //                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                 sh "echo Hello"
-                }
             }
         }
         stage ('Migration Stage') {
