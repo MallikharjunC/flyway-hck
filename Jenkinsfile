@@ -33,6 +33,9 @@ pipeline {
             steps {
                 script {
                     migrationSucceeded = "false"
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        sh "exit 1"
+                    }
                     echo '$migrationSucceeded'
                 }
             }
@@ -63,15 +66,15 @@ pipeline {
             }
         }
         stage ('Rollback Database version') {
+            when {
+                expression {
+                    deploymentSucceeded = 'false'
+                }
+            }
             steps {
                 script {
-                    if(deploymentSucceeded == "true") {
-                        echo "skipping successful"
-                        sh 'exit 1'
-                    } else {
-                        echo "restoring from version"
-                        sh 'sleep 5'
-                    }
+                    echo "restoring from version"
+                    sh 'sleep 5'
                 }
             }
         }
