@@ -52,7 +52,6 @@ pipeline {
                         deploymentSucceeded = "false"
                     } else {
                         echo "skipping deployment"
-                                    sh 'exit 1'
                     }
                 }
 
