@@ -3,10 +3,12 @@ pipeline {
     tools {
             maven 'Maven 3.5.0'
     }
-    environment  {
-       migrationSucceeded = false
-       deploymentSucceeded = false
-    }
+//     environment  {
+//        migrationSucceeded = false
+//        deploymentSucceeded = false
+//     }
+    migrationSucceeded = false
+    deploymentSucceeded = false
     stages {
         stage ('cloning repo') {
             steps {
