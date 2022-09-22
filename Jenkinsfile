@@ -10,12 +10,17 @@ pipeline {
     stages {
         stage ('cloning repo') {
             steps {
-                sh 'sleep 5'
+                sh 'sleep 3'
             }
         }
         stage ('Setting up Environment') {
             steps {
-                sh 'sleep 5'
+                sh 'sleep 3'
+            }
+        }
+        stage ('Database Snapshot') {
+            steps {
+                sh 'sleep 3'
             }
         }
         stage ('Compile & build') {
@@ -24,14 +29,15 @@ pipeline {
                 sh "echo Hello"
             }
         }
-        stage ('Migration Stage') {
+        stage ('Database Migration') {
             steps {
                 script {
                     migrationSucceeded = "false"
+                    echo $migrationSucceeded
                 }
             }
         }
-        stage ('Restore Databse') {
+        stage ('Restore Database') {
             steps {
                 script {
                     if(migrationSucceeded == "true") {
