@@ -44,16 +44,18 @@ pipeline {
             }
         }
         stage ('Deployment') {
-            if(deploymentSucceeded == "true") {
-                steps {
-                    script {
-                        echo "deployment successful"
-                        sh 'sleep 5'
+            script {
+                if(deploymentSucceeded == "true") {
+                    steps {
+                        script {
+                            echo "deployment successful"
+                            sh 'sleep 5'
+                        }
                     }
+                } else {
+                    echo "skipping deployment"
+                    deploymentSucceeded = "false"
                 }
-            } else {
-                echo "skipping deployment"
-                deploymentSucceeded = "false"
             }
         }
         stage ('Rollback Database version') {
