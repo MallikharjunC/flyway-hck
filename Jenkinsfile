@@ -34,7 +34,7 @@ pipeline {
         stage ('Restore Databse') {
             steps {
                 script {
-                    if(migrationSucceeded == "false") {
+                    if(migrationSucceeded == "true") {
                         sh 'exit 1'
                     } else {
                         echo "restoring from backup"
@@ -49,7 +49,7 @@ pipeline {
                     if(migrationSucceeded == "true") {
                         echo "deployment successful"
                         sh 'sleep 5'
-                        deploymentSucceeded = "true"
+                        deploymentSucceeded = "false"
                     } else {
                         echo "skipping deployment"
                                     sh 'exit 1'
