@@ -33,10 +33,9 @@ pipeline {
             steps {
                 script {
                     migrationSucceeded = "false"
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh "exit 1"
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        sh 'exit 1'
                     }
-                    echo '$migrationSucceeded'
                 }
             }
         }
