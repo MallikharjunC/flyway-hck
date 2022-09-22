@@ -26,7 +26,9 @@ pipeline {
         }
         stage ('Migration Stage') {
             steps {
-                migrationSucceeded = "false"
+                script {
+                    migrationSucceeded = "false"
+                }
             }
         }
         stage ('Restore Databse') {
