@@ -51,7 +51,6 @@ pipeline {
                         sh 'sleep 5'
                         deploymentSucceeded = "false"
                     } else {
-                        echo "skipping deployment"
                     }
                 }
 
