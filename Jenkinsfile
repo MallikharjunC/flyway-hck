@@ -44,17 +44,15 @@ pipeline {
             }
         }
         stage ('Deployment') {
-            script {
-                if(deploymentSucceeded == "true") {
-                    steps {
-                        script {
-                            echo "deployment successful"
-                            sh 'sleep 5'
-                        }
-                    }
-                } else {
-                    echo "skipping deployment"
-                    deploymentSucceeded = "false"
+            echo "skipping deployment"
+            deploymentSucceeded = "false"
+            when {
+                migrationSucceeded 'false'
+            }
+            steps {
+                script {
+                    echo "deployment successful"
+                    sh 'sleep 5'
                 }
             }
         }
