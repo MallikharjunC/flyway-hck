@@ -5,6 +5,8 @@ pipeline {
     tools {
             maven 'Maven 3.5.0'
         }
+    def migrationSucceeded = false
+    def deploymentSucceeded = false
     stages {
         stage ('cloning repo') {
             steps {
@@ -14,47 +16,52 @@ pipeline {
         stage ('Setting up Environment') {
             steps {
                 sh 'sleep 5'
-                script {
-                    // Catch exceptions, set the stage result as unstable,
-                    // build result as failure, and the variable didB1Succeed to false
-                    try {
-                        sh "exit 1"
-                        stageResultMap.didB1Succeed = true
-                    }
-                    catch (Exception e) {
-                        unstable("${STAGE_NAME} failed!")
-                        currentBuild.result = 'FAILURE'
-                        stageResultMap.didB1Succeed = false
-                    }
-                }
             }
         }
         stage ('Compile & build') {
-            when {
-                expression {
-                    return stageResultMap.find{ it.key == "didB1Succeed" }?.value
-                }
-            }
             steps {
                 sh 'sleep 5'
-                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+//                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                 sh "echo Hello"
                 }
             }
         }
         stage ('Migration Stage') {
             steps {
-                sh 'mvn clean compile test -DconfigFileName=/var/lib/jenkins/workspace/flyway_conf'
+//                 sh 'mvn clean compile test -DconfigFileName=/var/lib/jenkins/workspace/flyway_conf'
+                migrationSucceeded = false
+            }
+        }
+        stage ('Restore Databse') {
+            steps {
+                if(migrationSucceeded) {
+                    sh 'exit 1'
+                } else {
+                    echo "restoring from backup"
+                    sh 'sleep 5'
+                }
             }
         }
         stage ('Deployment') {
             steps {
-                sh 'sleep 5'
+                if(migrationSucceeded) {
+                    echo "deployment successful"
+                    sh 'sleep 5'
+                } else {
+                    echo "skipping deployment"
+                    sh 'exit 1'
+                }
             }
         }
-        stage ('Rollback Database Changes') {
+        stage ('Rollback Database version') {
             steps {
-                sh 'sleep 5'
+                if(deploymentSucceeded) {
+                    echo "skipping successful"
+                    sh 'exit 1'
+                } else {
+                    echo "restoring from version"
+                    sh 'sleep 5'
+                }
             }
         }
     }
