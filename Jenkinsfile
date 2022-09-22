@@ -45,7 +45,9 @@ pipeline {
         }
         stage ('Deployment') {
             when {
-                migrationSucceeded 'false'
+                expression {
+                    migrationSucceeded = 'true'
+                }
             }
             steps {
                 script {
