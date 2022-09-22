@@ -31,9 +31,12 @@ pipeline {
         }
         stage ('Database Migration') {
             steps {
-                migrationSucceeded = "false"
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh 'exit 1'
+                }
+                script {
+                    migrationSucceeded = "false"
+//                     sh 'exit 1'
                 }
             }
         }
