@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     migrationSucceeded = "false"
-                    echo $migrationSucceeded
+                    echo '$migrationSucceeded'
                 }
             }
         }
