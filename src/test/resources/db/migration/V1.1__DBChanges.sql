@@ -7,3 +7,5 @@ ALTER TABLE UserInfo ADD email VARCHAR;
 
 ALTER TABLE SellerInfo ADD email VARCHAR;
 
+UPDATE UserInfo set email="john@abc.com";
+
