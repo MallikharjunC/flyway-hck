@@ -3,7 +3,7 @@ CREATE TABLE AccountInfo (
     acc_name VARCHAR NOT NULL,
 );
 
-ALTER TABLE UserInfo ADD email VARCHAR;
+ALTER TABLE User_Info ADD email VARCHAR;
 
 ALTER TABLE SellerInfo ADD email VARCHAR;
 
