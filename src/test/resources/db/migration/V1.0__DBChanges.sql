@@ -1,0 +1,9 @@
+CREATE TABLE UserInfo (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+);
+
+CREATE TABLE SellerInfo (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+);
