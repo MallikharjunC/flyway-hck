@@ -12,5 +12,5 @@ INSERT into UserInfo (id,name) values (1,'John');
 INSERT into UserInfo (id,name) values (2,'Mike');
 
 
-INSERT into UserInfo (id,org) values (1,'ABC');
-INSERT into UserInfo (id,org) values (2,'XYZ');
+INSERT into SellerInfo (id,org) values (1,'ABC');
+INSERT into SellerInfo (id,org) values (2,'XYZ');
