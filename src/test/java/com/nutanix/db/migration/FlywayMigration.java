@@ -60,8 +60,6 @@ public class FlywayMigration {
     public void validate(){
         System.out.println("Version history after " + activity + " :\n" +
                 MigrationInfoDumper.dumpToAsciiTable(flyway.info().all()));
-        System.out.println("Performing migration validation");
-        flyway.validate();
     }
 
 }
